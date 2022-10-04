@@ -48,10 +48,27 @@ const saveData = (data)=>{
   }
 }
 
+const deleteItem = (id) =>{
+  try{
+    realm.write(()=>{
+      realm.delete(
+        realm.objectForPrimaryKey("Savings",id)
+        );
+      console.log("record deleted: " + id);
+      return true
+    })
+  }catch(e){
+    console.log(e + "cannot delete");
+    return false
+  }
+}
+
 
 //query the savings
-let getSavings = realm.objects("Savings");
+//let getSavings = realm.objects("Savings");
+const getSavings = () => realm.objects("Savings");
+
 const getSavingById = (id)=> realm.objectForPrimaryKey("Savings", id); 
 
-export {getSavings, saveData, getSavingById};
+export {getSavings, saveData, deleteItem, getSavingById};
 export default realm;

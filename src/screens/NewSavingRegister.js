@@ -56,7 +56,7 @@ function NewSavingRegister({navigation}){
       }
       //2 await store(data);
       saveData(data);
-      navigation.navigate('Home');
+      navigation.navigate('Home',{updateState: true});
     }
   }
 

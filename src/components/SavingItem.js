@@ -10,8 +10,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
   and/or delete the item from the database.
 */
 
-function SavingItem({name, quantity, date, idRegister, navigation, data}){
-  console.log(data)
+function SavingItem({name, quantity, date, idRegister, navigation, data, remove}){
+
   const shrinkName = reduceTo(name,25);
   //const goTo = (id) => navigation.navigate('SelectedSavingMain',{id : id});
   const goToDetails = () => navigation.navigate('SelectedSavingMain',{data : data});
@@ -19,7 +19,8 @@ function SavingItem({name, quantity, date, idRegister, navigation, data}){
 
   const rightActions = () =>{
     return(
-      <TouchableHighlight style={styles.deleteItem} onPress={()=>console.log(idRegister)}>
+      // <TouchableHighlight style={styles.deleteItem} onPress={()=>call(idRegister)}>
+      <TouchableHighlight style={styles.deleteItem} onPress={remove}>
         <View>
           <Text>{deleteIcon}</Text>
         </View>
@@ -47,6 +48,7 @@ function SavingItem({name, quantity, date, idRegister, navigation, data}){
     </>
   )
 }
+import { deleteItem } from '../models/database';
 
 const styles = StyleSheet.create({
   wrapper : {

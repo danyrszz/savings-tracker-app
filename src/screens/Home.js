@@ -4,17 +4,27 @@ import { useIsFocused } from '@react-navigation/native';
 
 import SavingItem from '../components/SavingItem';
 import TitleBar from '../components/TitleBar';
+import Snack from '../components/Snack';
 import { generalStyles } from '../utils/reusableStyles';
 
 import { getSavings } from '../models/database';
+import { deleteItem as deleteSaving } from '../models/database';
 
-function Home ({navigation}){
-  const isFocused = useIsFocused();
-  const [registers, setRegisters] = useState([]);
-  
-  useEffect(()=>{
-    setRegisters(getSavings)
-  },[registers, isFocused]);
+function Home ({route, navigation}){
+  const [registers, setRegisters] = useState(getSavings());
+  //const [newRegisterAdded, setNewRegisterAdded] = useState(false);
+
+  // const updated = route.params;
+  // console.log(updated)
+
+  // useEffect(()=>{
+  //   setRegisters(getSavings());
+  // }, [newRegisterAdded])
+
+  function deleteRecord (id){
+    deleteSaving(id);
+    setRegisters(getSavings());
+  }
 
   const noElements = 
     <View style={generalStyles.genericScreenContainer}>
@@ -40,9 +50,12 @@ function Home ({navigation}){
       idRegister = {element._id}
       navigation = {navigation}
       data = {element}
+      remove = {()=> deleteRecord(element._id)}
       />
     })}
   </ScrollView>
+
+  const snack = <Snack message="Registro borrado correctamente!"></Snack>
 
   return(
     <>
