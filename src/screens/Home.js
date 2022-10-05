@@ -10,7 +10,7 @@ import { generalStyles } from '../utils/reusableStyles';
 import { getSavings } from '../models/database';
 import { deleteItem as deleteSaving } from '../models/database';
 
-function Home ({route, navigation}){
+function Home ({navigation}){
   const [registers, setRegisters] = useState(getSavings());
   //const [newRegisterAdded, setNewRegisterAdded] = useState(false);
 

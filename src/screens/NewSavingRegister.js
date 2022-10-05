@@ -45,7 +45,7 @@ function NewSavingRegister({navigation}){
     })
   }
 
-  async function handleSave(){
+  function handleSave(){
     if(!datepickerDate||!savingName||(targetQuantity<=0||!targetQuantity)){
       setShowSnackBar(true);
     }else{

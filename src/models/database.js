@@ -68,7 +68,8 @@ const deleteItem = (id) =>{
 //let getSavings = realm.objects("Savings");
 const getSavings = () => realm.objects("Savings");
 
-const getSavingById = (id)=> realm.objectForPrimaryKey("Savings", id); 
+//receives an string formatted uuid and converts into uuid
+const getSavingById = (id)=> realm.objectForPrimaryKey("Savings", new UUID(id)); 
 
 export {getSavings, saveData, deleteItem, getSavingById};
 export default realm;

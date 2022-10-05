@@ -3,6 +3,7 @@ import { colors, generalStyles } from '../utils/reusableStyles';
 import reduceTo from '../utils/misc';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { formatDate } from '../utils/dateUtils';
 
 /*
   this component is able to navigate to the main information screen
@@ -11,10 +12,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 */
 
 function SavingItem({name, quantity, date, idRegister, navigation, data, remove}){
-
+  const id = idRegister.toString();
+  const formattedDate = formatDate(date);
   const shrinkName = reduceTo(name,25);
-  //const goTo = (id) => navigation.navigate('SelectedSavingMain',{id : id});
-  const goToDetails = () => navigation.navigate('SelectedSavingMain',{data : data});
+  const goToDetails = () => navigation.navigate('SelectedSavingMain',{id : id});
+  //const goToDetails = () => navigation.navigate('SelectedSavingMain',{data : data});
   const deleteIcon = <Icon name='delete' size={40} color={colors.lightPurple} />;
 
   const rightActions = () =>{
@@ -40,7 +42,7 @@ function SavingItem({name, quantity, date, idRegister, navigation, data, remove}
           </View>
         {/* bottom row */}
           <View style={styles.bottomRow}>
-            <Text style={styles.dateLabel}>{date}</Text>
+            <Text style={styles.dateLabel}>{formattedDate}</Text>
           </View>
         </View>
         </TouchableHighlight>
@@ -48,7 +50,6 @@ function SavingItem({name, quantity, date, idRegister, navigation, data, remove}
     </>
   )
 }
-import { deleteItem } from '../models/database';
 
 const styles = StyleSheet.create({
   wrapper : {
@@ -79,7 +80,6 @@ const styles = StyleSheet.create({
     width:80,
     alignItems:'center',
     justifyContent:'center',
-    //transform:[{translateX:80}]
   }
 })
 export default SavingItem;

@@ -9,7 +9,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../utils/reusableStyles';
 
 const tabs = createBottomTabNavigator();
-export const idContext = React.createContext();
+export const idSavingContext = React.createContext();
+
+  //this components receives the id of the selected saving
+  //to be available in the context for all of the tabs.
 
 function SelectedSavingMain ({route, navigation}) {
   // options for configuring tab style
@@ -18,6 +21,8 @@ function SelectedSavingMain ({route, navigation}) {
   const iconActiveColor = colors.link;
   const tabTextSize = 13;
 
+
+  //const savingData = getSavingById (route.params.id);
 
   function tabIcon (icon,color){
     return <Icon name={icon} size={tabBarIconSize} color={color} />;
@@ -35,7 +40,7 @@ function SelectedSavingMain ({route, navigation}) {
         navigation={navigation}
         route='Home'
       />
-      <idContext.Provider value={route.params.data}>
+      <idSavingContext.Provider value={route.params.id}>
         <tabs.Navigator 
         screenOptions={{
           headerShown: false,
@@ -79,7 +84,7 @@ function SelectedSavingMain ({route, navigation}) {
           }}
           />
         </tabs.Navigator>
-      </idContext.Provider>
+      </idSavingContext.Provider>
       </>
   )
 }

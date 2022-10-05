@@ -7,5 +7,30 @@ function daysTo( futureDate ) {
   //converts futureDate into ms.
   //format AAAA-MM-DD
   const futureDateMS = new Date(futureDate).getTime()
-  return Math.round((futureDateMS - actualDateMS)/ONE_HOUR);
+  return Math.round((futureDateMS - actualDateMS)/ONE_HOUR)+1;
 }
+
+function formatDate(date){
+  const months = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+  const d = date.split("-");
+  return `${d[2]} de ${months[d[1]-1]} de ${d[0]}`;
+}
+
+function daysRemaining(){
+
+}
+
+export {daysTo, formatDate, daysRemaining};

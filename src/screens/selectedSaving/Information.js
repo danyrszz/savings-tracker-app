@@ -1,20 +1,30 @@
 import { View, Text, StyleSheet } from "react-native";
-import { useContext } from "react";
-import { idContext } from "./SelectedSavingMain";
+import { useContext, useState } from "react";
+import { idSavingContext } from "./SelectedSavingMain";
 import { colors } from "../../utils/reusableStyles";
 import reduceTo from '../../utils/misc';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { daysTo } from "../../utils/dateUtils";
+import { getSavingById } from '../../models/database';
 
 const warningIcon = <Icon name='warning' size={30} color={colors.red} />
 
 function InformationHome () {
 
-  const data = useContext(idContext);
-  //id will be used to fetch the info of the action to be displayed here
+  const id = useContext(idSavingContext);
+  const [savingInformation, getSavingInformation] = useState(getSavingById(id));
 
+  const [currentSaving, setCurrentSaving] = useState(0);
+  const [remaining, setRemaining] = useState(savingInformation.quantity);
+  const [remainingDays, setRemainingDays] = useState(daysTo(savingInformation.finalDate))  
+  
+  console.log(savingInformation)
+  console.log(savingInformation.incomes.length)
   // example info
-  const name = data.name;
-  const shrinkedName = reduceTo(name, 70)
+  const name = savingInformation.name;
+  const daysToFinalDate = daysTo(savingInformation.finalDate);
+  const shrinkedName = reduceTo(name, 70);
+
   return(
     <View>
 
@@ -25,13 +35,13 @@ function InformationHome () {
         </Text>
 
         <View style={[styles.quantityContainer, styles.boxSadow]}>
-          <Text style={styles.quantityText}>$ 450</Text>
+          <Text style={styles.quantityText}>${currentSaving}</Text>
           {/* <Text style={styles.quantityText}>450 </Text> */}
         </View>
         
         <View style={{display:'flex', alignItems:'flex-end', width:'100%'}}>
           <View style={styles.targetQuantityContainer}>
-            <Text style={styles.targetQuantity}>Faltan: $4750</Text>
+            <Text style={styles.targetQuantity}>Faltan: ${remaining}</Text>
           </View>
         </View>
 
@@ -40,7 +50,7 @@ function InformationHome () {
             {warningIcon} 
           </View>
           <View style={styles.iconWrapper}>
-            <Text style ={styles.iconWrapper}>Te quedan 22 dias</Text>
+            <Text style ={styles.iconWrapper}>Te quedan {remainingDays} dias</Text>
           </View>
         </View>
       </View>
