@@ -1,20 +1,31 @@
 import {View,Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {colors} from '../utils/reusableStyles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useEffect } from 'react';
 
+function Snack({message, onClose, duration, isOpen}){
 
-function Snack({message, onClose, style, icon}){
+    useEffect(()=>{
+    if(isOpen){
+      const timer = setTimeout(()=>{
+        if(!isOpen) clearTimeout(timer);
+        onClose();
+      }, duration)
+    }
+  }, [isOpen]);
+
 
   const decoIcon = <Icon name='warning' size={30} color={colors.lightPurple} />
   const closeIcon = <Icon name='close' size={30} color={colors.lightPurple} />
   return(
-    <View style={styles.container}>
-      <View>{decoIcon}</View>
-      <View>
-       <Text style={[styles.messageStyle,styles.warning]}>{message}</Text>
-      </View>
-      <TouchableHighlight onPress={onClose}>{closeIcon}</TouchableHighlight>
+    isOpen?
+    (<View style={styles.container}>
+    <View>{decoIcon}</View>
+    <View>
+      <Text style={[styles.messageStyle,styles.warning]}>{message}</Text>
     </View>
+    <TouchableHighlight onPress={onClose}>{closeIcon}</TouchableHighlight>
+  </View>):null
   )
 }
 

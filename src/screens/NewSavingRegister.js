@@ -1,5 +1,5 @@
 import {View, StyleSheet, TurboModuleRegistry} from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
 import { generalStyles, colors } from '../utils/reusableStyles';
@@ -17,15 +17,6 @@ function NewSavingRegister({navigation}){
   const [targetQuantity, setTargetQuantity] = useState (0);
   const [datepickerDate, setDatePickerDate] = useState('');
   const [showSnackbar, setShowSnackBar] = useState (false);
-
-  useEffect(()=>{
-    if(showSnackbar){
-      const timer = setTimeout(()=>{
-        if(!showSnackbar) clearTimeout(timer);
-        setShowSnackBar(false);
-      },3000)
-    }
-  }, [showSnackbar]);
 
   function formatDate(date){
     const selectedDate = new Date(date);
@@ -54,7 +45,6 @@ function NewSavingRegister({navigation}){
         quantity : targetQuantity,
         finalDate : datepickerDate,
       }
-      //2 await store(data);
       saveData(data);
       navigation.navigate('Home',{updateState: true});
     }
@@ -62,7 +52,7 @@ function NewSavingRegister({navigation}){
 
   return(
     <View style={generalStyles.genericScreenContainer}>
-      {showSnackbar?<Snack message='No pueden haber campos vacios' onClose={()=>setShowSnackBar(false)}/>:null}
+      <Snack isOpen={showSnackbar} message='No pueden haber campos vacios' onClose={()=>setShowSnackBar(false)} duration={2500}/>
       <View style={styles.formWrapper}>
         <InputText iconName='edit' placeholder='Nombre' behavior={text=>setSavingName(text)}/>
         <InputText iconName='payments' placeholder='Cantidad Objetivo' type='number' behavior={text=>setTargetQuantity(parseFloat(text))}/>
