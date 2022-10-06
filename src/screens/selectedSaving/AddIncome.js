@@ -1,32 +1,40 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { useContext, useState } from "react";
 import { idSavingContext } from "./SelectedSavingMain";
 import { generalStyles } from "../../utils/reusableStyles";
 import InputText from '../../components/InputText'
 import Button from '../../components/Button'
 import Snack from "../../components/Snack";
+import { addIncome } from "../../models/database";
 /*
   component to add a income to the register, this will
   automatically save the actual date.
 */
 
-function AddIncome () {
-
+function AddIncome ({navigation}) {
   const [registerIdentifier, setRegisterIdentifier] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [showSnackbar, setShowSnackBar] = useState (false);
 
+  const id = useContext(idSavingContext);
+  
   function saveIncome () {
     if(!registerIdentifier||!quantity){
       setShowSnackBar(true);
     }else{
-      console.log(registerIdentifier+' '+quantity);
+      const income = {
+        name : registerIdentifier,
+        currentSaving : quantity
+      }
+      addIncome(id, income);
+      navigation.navigate("Information",{updateState: true})
     }
   }
 
   return (
     <View style={[generalStyles.genericScreenContainer, styles.formWrapper]}>
-      {showSnackbar?<Snack message='No pueden haber campos vacios' onClose={()=>setShowSnackBar(false)}/>:null}
+      <Snack isOpen={showSnackbar} message='No pueden haber campos vacios' onClose={()=>setShowSnackBar(false)} duration={2500}/>
+      <Text>Añadir ingreso</Text>
       <InputText
         iconName='edit'
         placeholder='Identificador del ingreso'

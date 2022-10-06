@@ -12,14 +12,13 @@ const warningIcon = <Icon name='warning' size={30} color={colors.red} />
 function InformationHome () {
 
   const id = useContext(idSavingContext);
-  const [savingInformation, getSavingInformation] = useState(getSavingById(id));
+  const [savingInformation, setSavingInformation] = useState(getSavingById(id));
 
   const [currentSaving, setCurrentSaving] = useState(0);
   const [remaining, setRemaining] = useState(savingInformation.quantity);
   const [remainingDays, setRemainingDays] = useState(daysTo(savingInformation.finalDate))  
   
-  console.log(savingInformation)
-  console.log(savingInformation.incomes.length)
+  console.log(savingInformation.incomes)
   // example info
   const name = savingInformation.name;
   const daysToFinalDate = daysTo(savingInformation.finalDate);
@@ -30,13 +29,16 @@ function InformationHome () {
 
       <View style={styles.itemsContainer}>
 
+        {savingInformation.incomes.map((element)=>{
+          return <Text>{element.name}</Text>
+        }
+        )}
         <Text style={styles.titleText}> 
          {shrinkedName}
         </Text>
 
         <View style={[styles.quantityContainer, styles.boxSadow]}>
           <Text style={styles.quantityText}>${currentSaving}</Text>
-          {/* <Text style={styles.quantityText}>450 </Text> */}
         </View>
         
         <View style={{display:'flex', alignItems:'flex-end', width:'100%'}}>

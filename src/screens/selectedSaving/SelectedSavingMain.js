@@ -75,6 +75,7 @@ function SelectedSavingMain ({route, navigation}) {
           {/* add income */}
           <tabs.Screen 
           name="Add Income" 
+          navigation={navigation}
           component={AddIncome}
           options={{
             tabBarLabel:({focused})=> tabLabel('Añadir Ingreso', focused),

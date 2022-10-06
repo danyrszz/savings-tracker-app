@@ -63,6 +63,20 @@ const deleteItem = (id) =>{
   }
 }
 
+const addIncome = (id, income) =>{
+  incomeData = {...income, _id : new UUID(),}
+  try{
+    const saving = getSavingById(id);
+    // console.log(saving.incomes)
+    // console.log(incomeData)
+    realm.write(()=>{
+      saving.incomes.push(incomeData)
+    })
+  }catch(e){
+    console.log(e)
+  }
+}
+
 
 //query the savings
 //let getSavings = realm.objects("Savings");
@@ -71,5 +85,5 @@ const getSavings = () => realm.objects("Savings");
 //receives an string formatted uuid and converts into uuid
 const getSavingById = (id)=> realm.objectForPrimaryKey("Savings", new UUID(id)); 
 
-export {getSavings, saveData, deleteItem, getSavingById};
+export {getSavings, saveData, deleteItem, getSavingById, addIncome};
 export default realm;

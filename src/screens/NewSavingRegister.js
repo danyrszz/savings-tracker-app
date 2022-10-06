@@ -1,4 +1,4 @@
-import {View, StyleSheet, TurboModuleRegistry} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import { useState } from 'react';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 

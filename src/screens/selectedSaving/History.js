@@ -1,10 +1,14 @@
 import { View, StyleSheet } from "react-native";
-import { useContext } from "react";
+import { useContext, useState} from "react";
 import { idSavingContext } from "./SelectedSavingMain";
 import IncomeDetails from "../../components/IncomeDetails";
+import { getSavingById } from '../../models/database';
+
 
 function History () {
-  const idSaving = useContext(idSavingContext);
+  const id = useContext(idSavingContext);
+  const [incomes, setIncomes] = useState(getSavingById(id));
+  console.log(incomes.incomes)
   return (
     <View style={styles.itemsContainer}>
       <IncomeDetails/>
