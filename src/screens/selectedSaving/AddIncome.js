@@ -6,6 +6,7 @@ import InputText from '../../components/InputText'
 import Button from '../../components/Button'
 import Snack from "../../components/Snack";
 import { addIncome } from "../../models/database";
+import { dateToString } from "../../utils/dateUtils";
 /*
   component to add a income to the register, this will
   automatically save the actual date.
@@ -24,7 +25,8 @@ function AddIncome ({navigation}) {
     }else{
       const income = {
         name : registerIdentifier,
-        currentSaving : quantity
+        currentSaving : quantity,
+        date : dateToString(new Date())
       }
       addIncome(id, income);
       navigation.navigate("Information",{

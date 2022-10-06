@@ -29,8 +29,13 @@ function formatDate(date){
   return `${d[2]} de ${months[d[1]-1]} de ${d[0]}`;
 }
 
+function dateToString(date){
+  const selectedDate = new Date(date);
+  return `${selectedDate.getFullYear()}-${selectedDate.getMonth()+1}-${selectedDate.getDate()}`;
+}
+
 function daysRemaining(){
 
 }
 
-export {daysTo, formatDate, daysRemaining};
+export {daysTo, formatDate, daysRemaining, dateToString};

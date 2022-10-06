@@ -7,6 +7,7 @@ import InputText from '../components/InputText';
 import CalendarPicker from '../components/CalendarPicker';
 import Button from '../components/Button';
 import Snack from '../components/Snack';
+import { dateToString as formatDate } from '../utils/dateUtils';
 
 import { saveData } from '../models/database';
 
@@ -17,11 +18,6 @@ function NewSavingRegister({navigation}){
   const [targetQuantity, setTargetQuantity] = useState (0);
   const [datepickerDate, setDatePickerDate] = useState('');
   const [showSnackbar, setShowSnackBar] = useState (false);
-
-  function formatDate(date){
-    const selectedDate = new Date(date);
-    return `${selectedDate.getFullYear()}-${selectedDate.getMonth()+1}-${selectedDate.getDate()}`;
-  }
 
   //updates the state with the formatted date
   function onChange(e, selectedDate){
