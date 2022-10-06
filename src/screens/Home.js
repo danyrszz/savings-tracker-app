@@ -1,10 +1,8 @@
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
-import { useState, useEffect } from 'react';
-import { useIsFocused } from '@react-navigation/native';
+import { useState } from 'react';
 
 import SavingItem from '../components/SavingItem';
 import TitleBar from '../components/TitleBar';
-import Snack from '../components/Snack';
 import { generalStyles } from '../utils/reusableStyles';
 
 import { getSavings } from '../models/database';
@@ -12,14 +10,6 @@ import { deleteItem as deleteSaving } from '../models/database';
 
 function Home ({navigation}){
   const [registers, setRegisters] = useState(getSavings())
-  //const [newRegisterAdded, setNewRegisterAdded] = useState(false);
-
-  // const updated = route.params;
-  // console.log(updated)
-
-  // useEffect(()=>{
-  //   setRegisters(getSavings());
-  // }, [newRegisterAdded])
 
   function deleteRecord (id){
     deleteSaving(id);
@@ -54,8 +44,6 @@ function Home ({navigation}){
       />
     })}
   </ScrollView>
-
-  const snack = <Snack message="Registro borrado correctamente!"></Snack>
 
   return(
     <>

@@ -8,6 +8,7 @@ IncomesSchema.schema = {
   properties: {
     _id: "uuid",
     name: "string",
+    date: "string",
     currentSaving : "float"
   },
 }
@@ -67,10 +68,8 @@ const addIncome = (id, income) =>{
   incomeData = {...income, _id : new UUID(),}
   try{
     const saving = getSavingById(id);
-    // console.log(saving.incomes)
-    // console.log(incomeData)
     realm.write(()=>{
-      saving.incomes.push(incomeData)
+      saving.incomes.push(incomeData);
     })
   }catch(e){
     console.log(e)
