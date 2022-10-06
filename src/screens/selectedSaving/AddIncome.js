@@ -27,7 +27,9 @@ function AddIncome ({navigation}) {
         currentSaving : quantity
       }
       addIncome(id, income);
-      navigation.navigate("Information",{updateState: true})
+      navigation.navigate("Information",{
+        updated: true,
+      })
     }
   }
 

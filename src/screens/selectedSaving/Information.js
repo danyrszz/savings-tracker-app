@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { idSavingContext } from "./SelectedSavingMain";
 import { colors } from "../../utils/reusableStyles";
 import reduceTo from '../../utils/misc';
@@ -10,7 +10,6 @@ import { getSavingById } from '../../models/database';
 const warningIcon = <Icon name='warning' size={30} color={colors.red} />
 
 function InformationHome () {
-
   const id = useContext(idSavingContext);
   const [savingInformation, setSavingInformation] = useState(getSavingById(id));
 
@@ -26,7 +25,6 @@ function InformationHome () {
 
   return(
     <View>
-
       <View style={styles.itemsContainer}>
 
         {savingInformation.incomes.map((element)=>{
