@@ -1,19 +1,26 @@
-import { View, Text, StyleSheet, useColorScheme } from "react-native";
+import { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import { colors } from "../utils/reusableStyles";
 /*
-  this component shows the information of each income register 
+  this component shows the information of each income register
+  assigned to a saving item 
   a tap to the component allows the user to edit its 
   specific information.
   editable information is just name and date. not quantity
 */
 
 function IncomeDetails({name,quantity,date}){
+  const [data, setData] = useState({
+    name : name,
+    quantity : quantity,
+    date : date
+  })
   return(
     <View style={styles.container}>
-      <Text style={styles.row}> Algun nombregsdgdb sdfg sgdsf sdg sdgdfsg sdg sdfg sdgdsfg  </Text>
-      <Text style={[styles.row, styles.quantityText]}> $100</Text>
+      <Text style={styles.row}>{data.name}</Text>
+      <Text style={[styles.row, styles.quantityText]}> ${data.quantity}</Text>
       <View style={styles.dateContainer}>
-        <Text style={styles.dateText}>22 diciembre 2022</Text>
+        <Text style={styles.dateText}>{data.date}</Text>
       </View>
     </View>
   )

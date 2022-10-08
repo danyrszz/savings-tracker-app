@@ -11,7 +11,7 @@ import { formatDate } from '../utils/dateUtils';
   and/or delete the item from the database.
 */
 
-function SavingItem({name, quantity, date, idRegister, navigation, data, remove}){
+function SavingItem({name, quantity, date, idRegister, navigation, remove}){
   const id = idRegister.toString();
   const formattedDate = formatDate(date);
   const shrinkName = reduceTo(name,25);

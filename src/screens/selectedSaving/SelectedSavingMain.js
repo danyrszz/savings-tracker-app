@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddIncome from './AddIncome';
@@ -7,6 +7,8 @@ import Information from './Information';
 import TitleBar from '../../components/TitleBar';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../utils/reusableStyles';
+import { getSavingById } from '../../models/database';
+import reduceTo from '../../utils/misc';
 
 const tabs = createBottomTabNavigator();
 export const idSavingContext = React.createContext();
@@ -15,14 +17,17 @@ export const idSavingContext = React.createContext();
   //to be available in the context for all of the tabs.
 
 function SelectedSavingMain ({route, navigation}) {
+  
+  const savingData = getSavingById (route.params.id);
+  const name = reduceTo(savingData.name, 27);
+  const [savingName, setSavingName] = useState(name);
+
   // options for configuring tab style
   const tabBarIconSize = 38;
   const iconInactiveColor = colors.vampire;
   const iconActiveColor = colors.link;
   const tabTextSize = 13;
 
-
-  //const savingData = getSavingById (route.params.id);
 
   function tabIcon (icon,color){
     return <Icon name={icon} size={tabBarIconSize} color={color} />;
@@ -35,7 +40,7 @@ function SelectedSavingMain ({route, navigation}) {
   return(
       <>
       <TitleBar 
-        title = 'Explorando registro'
+        title = {savingName}
         icon = 'home'
         navigation={navigation}
         route='Home'
