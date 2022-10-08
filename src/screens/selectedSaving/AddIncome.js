@@ -12,7 +12,7 @@ import { dateToString } from "../../utils/dateUtils";
   automatically save the actual date.
 */
 
-function AddIncome ({navigation}) {
+function AddIncome ({navigation, ok}) {
   const [registerIdentifier, setRegisterIdentifier] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [showSnackbar, setShowSnackBar] = useState (false);
@@ -29,9 +29,7 @@ function AddIncome ({navigation}) {
         date : dateToString(new Date())
       }
       addIncome(id, income);
-      navigation.navigate("History",{
-        updated: true,
-      })
+      navigation.navigate('Home',{updated:true, id:id})
     }
   }
 

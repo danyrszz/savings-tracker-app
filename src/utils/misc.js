@@ -4,19 +4,19 @@ export default function reduceTo(str,car){
 }
 
 //information 
-function getRemainingMoney(){}
 
-function getTotalSavedMoney(incomes, ){
-  if(incomes.length<0){
-
+function getTotalSavedMoney(incomes){
+  if(incomes.length>0){
+    return incomes.map(e=> e.currentSaving).reduce((prev,current) => prev+current,0)
   }else{
     return 0;
   }
 }
 
+function isComplete(){ return getRemainingMoney<=0 }
+
 
 
 export {
-  getRemainingMoney,
   getTotalSavedMoney
 }

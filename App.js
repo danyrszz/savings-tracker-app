@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { colors } from './src/utils/reusableStyles';
 
 import Home from './src/screens/Home';
@@ -10,6 +9,7 @@ import SelectedSavingMain from './src/screens/selectedSaving/SelectedSavingMain'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
+console.disableYellowBox = true;
 
 function App() {
   return (

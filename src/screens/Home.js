@@ -9,7 +9,15 @@ import { getSavings } from '../models/database';
 import { deleteItem as deleteSaving } from '../models/database';
 import { defaultPath } from 'realm';
 
-function Home ({navigation}){
+function Home ({navigation, route}){
+
+  //when an income is saved to a saving register, home receives from addincome component
+  //the updated variable and the id, so home will reroute again to selected saving comp
+  //and the freshly saved information gets loaded.
+  if(route.params!== undefined && route.params){
+    navigation.navigate('SelectedSavingMain',{id : route.params.id})
+  }
+
   const [registers, setRegisters] = useState(getSavings());
   console.log(defaultPath)
   function deleteRecord (id){

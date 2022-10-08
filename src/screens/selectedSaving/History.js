@@ -7,7 +7,7 @@ import { getSavingById } from '../../models/database';
 function History () {
   const id = useContext(idSavingContext);
   const [incomes, setIncomes] = useState(getSavingById(id).incomes);
-
+  console.log(incomes)
   const noItems =
   <View>
     <Text>No hay registros guardados aún</Text>

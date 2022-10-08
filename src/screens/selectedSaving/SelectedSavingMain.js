@@ -17,17 +17,15 @@ export const idSavingContext = React.createContext();
   //to be available in the context for all of the tabs.
 
 function SelectedSavingMain ({route, navigation}) {
-  
   const savingData = getSavingById (route.params.id);
   const name = reduceTo(savingData.name, 27);
   const [savingName, setSavingName] = useState(name);
-
+  
   // options for configuring tab style
   const tabBarIconSize = 38;
   const iconInactiveColor = colors.vampire;
   const iconActiveColor = colors.link;
   const tabTextSize = 13;
-
 
   function tabIcon (icon,color){
     return <Icon name={icon} size={tabBarIconSize} color={color} />;

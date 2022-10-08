@@ -1,31 +1,28 @@
 import { View, Text, StyleSheet } from "react-native";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { idSavingContext } from "./SelectedSavingMain";
 import { colors } from "../../utils/reusableStyles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { daysTo } from "../../utils/dateUtils";
 import { getSavingById } from '../../models/database';
+import { getTotalSavedMoney } from "../../utils/misc";
 
 const warningIcon = <Icon name='warning' size={30} color={colors.red} />
 
 function InformationHome () {
   const id = useContext(idSavingContext);
   const [savingInformation, setSavingInformation] = useState(getSavingById(id));
-  const [currentSaving, setCurrentSaving] = useState(0);
-  const [remaining, setRemaining] = useState(savingInformation.quantity);
-  const [remainingDays, setRemainingDays] = useState(daysTo(savingInformation.finalDate))  
-  
-  console.log(savingInformation.incomes)
-  // example info
-
-  return(
-    <View>
+  const [currentSaving, setCurrentSaving] = useState(
+    getTotalSavedMoney(savingInformation.incomes)
+    );
+  const [remaining, setRemaining] = useState(
+    savingInformation.quantity - currentSaving
+    );
+  const [remainingDays, setRemainingDays] = useState(daysTo(savingInformation.finalDate))
+      
+      return(
+        <View>
       <View style={styles.itemsContainer}>
-
-        {/* {savingInformation.incomes.map((element)=>{
-          return <Text>{element.name}</Text>
-        }
-        )} */}
         <View style={[styles.quantityContainer, styles.boxSadow]}>
           <Text style={styles.quantityText}>${currentSaving}</Text>
         </View>
