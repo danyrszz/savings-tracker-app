@@ -15,8 +15,8 @@ function History () {
   },[focused])
 
   const noItems =
-  <View>
-    <Text>No hay registros guardados aún</Text>
+  <View style={styles.noRecords}>
+    <Text>No hay nada por aqui todavia</Text>
   </View>;
 
   const allIncomes =
@@ -51,6 +51,11 @@ const styles = StyleSheet.create({
     width:'100%',
     padding: 15,
   },
+  noRecords:{
+    height:'100%',
+    justifyContent:"center",
+    alignItems:"center"
+  }
 })
 
 export default History;

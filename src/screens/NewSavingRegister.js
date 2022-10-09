@@ -21,7 +21,6 @@ function NewSavingRegister({navigation}){
 
   //updates the state with the formatted date
   function onChange(e, selectedDate){
-    console.log(formatDate(selectedDate));
     setDatePickerDate(formatDate(selectedDate));
   }
 
@@ -41,6 +40,8 @@ function NewSavingRegister({navigation}){
         quantity : targetQuantity,
         finalDate : datepickerDate,
         savedMoney:0,
+        progress:0,
+        restingMoney : targetQuantity
       }
       saveData(data);
       navigation.navigate('Home',{updated : true});

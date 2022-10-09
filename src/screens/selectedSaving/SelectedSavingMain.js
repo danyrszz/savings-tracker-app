@@ -30,13 +30,10 @@ function SelectedSavingMain ({route, navigation}) {
   function tabIcon (icon,color){
     return <Icon name={icon} size={tabBarIconSize} color={color} />;
   }
+
   function tabLabel (text, focused){
     if(focused) return <Text style={{fontSize:tabTextSize,color:iconActiveColor}}>{text}</Text>
     if(!focused) return <Text style={{fontSize:tabTextSize,color:iconInactiveColor}}>{text}</Text>
-  }
-
-  function save(){
-    console.log('saved from the parent')
   }
 
   return(
@@ -56,7 +53,6 @@ function SelectedSavingMain ({route, navigation}) {
           tabBarStyle:{height:60},
         }}
         >
-
           {/* Information */}
           <tabs.Screen 
           name="Information" 

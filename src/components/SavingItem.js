@@ -4,7 +4,7 @@ import reduceTo from '../utils/misc';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { formatDate } from '../utils/dateUtils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /*
   this component is able to navigate to the main information screen
@@ -12,19 +12,17 @@ import { useState } from 'react';
   and/or delete the item from the database.
 */
 
-function SavingItem({name, quantity, date, idRegister, navigation, remove}){
-  const [completed, setCompleted] = useState(false);
+function SavingItem({name, quantity, date, progress, idRegister, navigation, remove}){
+  
   const id = idRegister.toString();
   const formattedDate = formatDate(date);
   const shrinkName = reduceTo(name,25);
   const goToDetails = () => navigation.navigate('SelectedSavingMain',{id : id});
-  //const goToDetails = () => navigation.navigate('SelectedSavingMain',{data : data});
   const deleteIcon = <Icon name='delete' size={40} color={colors.lightPurple} />;
   const completedIcon = <Icon name='done' size={20} color={colors.green} />;
 
   const rightActions = () =>{
     return(
-      // <TouchableHighlight style={styles.deleteItem} onPress={()=>call(idRegister)}>
       <TouchableHighlight style={styles.deleteItem} onPress={remove}>
         <View>
           <Text>{deleteIcon}</Text>
@@ -48,7 +46,7 @@ function SavingItem({name, quantity, date, idRegister, navigation, remove}){
             <Text style={styles.dateLabel}>{formattedDate}</Text>
           </View>
           {/* if task completed */}
-          {completedIcon} 
+          <Text>{progress}</Text>
         </View>
         </TouchableHighlight>
     </Swipeable>

@@ -29,7 +29,7 @@ function AddIncome ({navigation}) {
         date : dateToString(new Date())
       }
       addIncome(id, income);
-      navigation.navigate('Information')
+      navigation.navigate('History')
     }
   }
 

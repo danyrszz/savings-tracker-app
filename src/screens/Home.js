@@ -1,5 +1,5 @@
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
-import { useState, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 import SavingItem from '../components/SavingItem';
 import TitleBar from '../components/TitleBar';
@@ -8,32 +8,24 @@ import { generalStyles } from '../utils/reusableStyles';
 import { getSavings } from '../models/database';
 import { deleteItem as deleteSaving } from '../models/database';
 import { defaultPath } from 'realm';
+import { useIsFocused } from "@react-navigation/native";
 
-import { useFocusEffect } from '@react-navigation/native';
+//when an income is saved to a saving register, home receives from addincome component
+//the updated variable and the id, so home will reroute again to selected saving comp
+//and the freshly saved information gets loaded.
 
-function Home ({navigation, route}){
+function Home ({navigation}){
 
   const [registers, setRegisters] = useState(getSavings());
-  const [isUpdated, setIsUpdated] = useState(false);
 
-  //when an income is saved to a saving register, home receives from addincome component
-  //the updated variable and the id, so home will reroute again to selected saving comp
-  //and the freshly saved information gets loaded.
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     if(route.params!== undefined && route.params){
-  //       console.log(route.params.updated);
-  //       setIsUpdated(true);
-  //     }
-  //     if(isUpdated) {
-  //       console.log('focused');
-  //       setIsUpdated(false);
-  //     }
-  //   }, [isUpdated, registers])
-  // );
-
-  console.log(defaultPath)
+  const focused = useIsFocused();
+  useEffect(()=>{
+    if(focused){
+      setRegisters(getSavings());
+    }
+  },[focused])
+  
+  //console.log(defaultPath)
   function deleteRecord (id){
     deleteSaving(id);
     setRegisters(getSavings());
@@ -51,7 +43,7 @@ function Home ({navigation, route}){
       >añadimos alguno</Text>?
     </Text>
   </View>;
-  console.log(registers)
+
   const registersList = 
   <ScrollView>
     {registers.map( element => {
@@ -62,7 +54,7 @@ function Home ({navigation, route}){
       date = {element.finalDate}
       idRegister = {element._id}
       navigation = {navigation}
-      data = {element}
+      progress = {element.progress}
       remove = {()=> deleteRecord(element._id)}
       />
     })}

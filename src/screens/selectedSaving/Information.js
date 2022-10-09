@@ -14,17 +14,14 @@ function Information () {
   const focused = useIsFocused();
   const [savingInformation, setSavingInformation] = useState(getSavingById(id));
   const [currentSaving, setCurrentSaving] = useState(savingInformation.savedMoney);
-  const [remaining, setRemaining] = useState(
-    savingInformation.quantity - currentSaving
-    );
+  const [remaining, setRemaining] = useState(savingInformation.restingMoney);
   const [remainingDays, setRemainingDays] = useState(daysTo(savingInformation.finalDate))
     
   useEffect(()=>{
     if(focused){
-      console.log(savingInformation)
-      setSavingInformation(getSavingById(id))
-      setCurrentSaving(savingInformation.savedMoney)
-      setRemaining(savingInformation.quantity - currentSaving)
+      setSavingInformation(getSavingById(id));
+      setCurrentSaving(savingInformation.savedMoney);
+      setRemaining(savingInformation.restingMoney);
     }
   },[focused])
     

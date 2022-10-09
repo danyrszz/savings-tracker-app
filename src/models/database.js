@@ -1,6 +1,8 @@
 import Realm from "realm";
 const { UUID } = Realm.BSON;
 
+import { getPercent } from "../utils/misc";
+
 class IncomesSchema extends Realm.Object { }
 IncomesSchema.schema = {
   embedded : true,
@@ -22,6 +24,8 @@ SavingSchema.schema = {
     quantity: "float",
     finalDate : "string",
     savedMoney : "float",
+    restingMoney : "float",
+    progress : "int",
     incomes : {
       type : 'list',
       objectType : 'Incomes',
@@ -38,6 +42,7 @@ const config = {
 }
 const realm = new Realm (config);
 
+//new saving register
 const saveData = (data)=>{
   data = {...data, _id : new UUID(),}
   try{
@@ -72,6 +77,8 @@ const addIncome = (id, income) =>{
     realm.write(()=>{
       saving.incomes.push(incomeData);
       saving.savedMoney += income.currentSaving;
+      saving.progress = getPercent(saving.savedMoney, saving.quantity);
+      saving.restingMoney -= income.currentSaving;
     })
   }catch(e){
     console.log(e)

@@ -12,6 +12,10 @@ function getTotalSavedMoney(incomes){
   }
 }
 
+function getPercent(saved, total){
+  return Math.floor((saved/total)*100)
+}
+
 export {
-  getTotalSavedMoney
+  getTotalSavedMoney, getPercent
 }
