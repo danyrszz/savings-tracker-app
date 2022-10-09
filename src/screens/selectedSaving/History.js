@@ -1,13 +1,19 @@
 import { View, StyleSheet, Text, ScrollView } from "react-native";
-import { useContext, useState} from "react";
+import { useContext, useState, useEffect} from "react";
 import { idSavingContext } from "./SelectedSavingMain";
 import IncomeDetails from "../../components/IncomeDetails";
 import { getSavingById } from '../../models/database';
+import { useIsFocused } from "@react-navigation/native";
 
 function History () {
   const id = useContext(idSavingContext);
   const [incomes, setIncomes] = useState(getSavingById(id).incomes);
-  console.log(incomes)
+
+  const focused = useIsFocused();
+  useEffect(()=>{
+    if(focused) setIncomes(getSavingById(id).incomes)
+  },[focused])
+
   const noItems =
   <View>
     <Text>No hay registros guardados aún</Text>

@@ -1,48 +1,56 @@
 import { View, Text, StyleSheet } from "react-native";
 import { useContext, useEffect, useState } from "react";
+import { useIsFocused } from "@react-navigation/native";
 import { idSavingContext } from "./SelectedSavingMain";
 import { colors } from "../../utils/reusableStyles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { daysTo } from "../../utils/dateUtils";
 import { getSavingById } from '../../models/database';
-import { getTotalSavedMoney } from "../../utils/misc";
 
 const warningIcon = <Icon name='warning' size={30} color={colors.red} />
 
-function InformationHome () {
+function Information () {
   const id = useContext(idSavingContext);
+  const focused = useIsFocused();
   const [savingInformation, setSavingInformation] = useState(getSavingById(id));
-  const [currentSaving, setCurrentSaving] = useState(
-    getTotalSavedMoney(savingInformation.incomes)
-    );
+  const [currentSaving, setCurrentSaving] = useState(savingInformation.savedMoney);
   const [remaining, setRemaining] = useState(
     savingInformation.quantity - currentSaving
     );
   const [remainingDays, setRemainingDays] = useState(daysTo(savingInformation.finalDate))
-      
-      return(
-        <View>
-      <View style={styles.itemsContainer}>
-        <View style={[styles.quantityContainer, styles.boxSadow]}>
-          <Text style={styles.quantityText}>${currentSaving}</Text>
-        </View>
-        
-        <View style={{display:'flex', alignItems:'flex-end', width:'100%'}}>
-          <View style={styles.targetQuantityContainer}>
-            <Text style={styles.targetQuantity}>Faltan: ${remaining}</Text>
-          </View>
-        </View>
-
-        <View style={[styles.textWarningContainer, styles.boxSadow]}>
-          <View style={styles.iconWrapper}>
-            {warningIcon} 
-          </View>
-          <View style={styles.iconWrapper}>
-            <Text style ={styles.iconWrapper}>Te quedan {remainingDays} dias</Text>
-          </View>
-        </View>
+    
+  useEffect(()=>{
+    if(focused){
+      console.log(savingInformation)
+      setSavingInformation(getSavingById(id))
+      setCurrentSaving(savingInformation.savedMoney)
+      setRemaining(savingInformation.quantity - currentSaving)
+    }
+  },[focused])
+    
+  return(
+  <View>
+  <View style={styles.itemsContainer}>
+    <View style={[styles.quantityContainer, styles.boxSadow]}>
+      <Text style={styles.quantityText}>${currentSaving}</Text>
+    </View>
+    
+    <View style={{display:'flex', alignItems:'flex-end', width:'100%'}}>
+      <View style={styles.targetQuantityContainer}>
+        <Text style={styles.targetQuantity}>Faltan: ${remaining}</Text>
       </View>
     </View>
+
+    <View style={[styles.textWarningContainer, styles.boxSadow]}>
+      <View style={styles.iconWrapper}>
+        {warningIcon} 
+      </View>
+      <View style={styles.iconWrapper}>
+        <Text style ={styles.iconWrapper}>Te quedan {remainingDays} dias</Text>
+      </View>
+    </View>
+  </View>
+  </View>
   )
 }
 
@@ -107,4 +115,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default InformationHome;
+export default Information;

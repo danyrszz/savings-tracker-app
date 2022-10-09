@@ -40,9 +40,10 @@ function NewSavingRegister({navigation}){
         name : savingName,
         quantity : targetQuantity,
         finalDate : datepickerDate,
+        savedMoney:0,
       }
       saveData(data);
-      navigation.navigate('Home',{updateState: true});
+      navigation.navigate('Home',{updated : true});
     }
   }
 

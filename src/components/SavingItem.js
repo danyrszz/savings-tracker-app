@@ -4,6 +4,7 @@ import reduceTo from '../utils/misc';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { formatDate } from '../utils/dateUtils';
+import { useState } from 'react';
 
 /*
   this component is able to navigate to the main information screen
@@ -12,12 +13,14 @@ import { formatDate } from '../utils/dateUtils';
 */
 
 function SavingItem({name, quantity, date, idRegister, navigation, remove}){
+  const [completed, setCompleted] = useState(false);
   const id = idRegister.toString();
   const formattedDate = formatDate(date);
   const shrinkName = reduceTo(name,25);
   const goToDetails = () => navigation.navigate('SelectedSavingMain',{id : id});
   //const goToDetails = () => navigation.navigate('SelectedSavingMain',{data : data});
   const deleteIcon = <Icon name='delete' size={40} color={colors.lightPurple} />;
+  const completedIcon = <Icon name='done' size={20} color={colors.green} />;
 
   const rightActions = () =>{
     return(
@@ -44,6 +47,8 @@ function SavingItem({name, quantity, date, idRegister, navigation, remove}){
           <View style={styles.bottomRow}>
             <Text style={styles.dateLabel}>{formattedDate}</Text>
           </View>
+          {/* if task completed */}
+          {completedIcon} 
         </View>
         </TouchableHighlight>
     </Swipeable>

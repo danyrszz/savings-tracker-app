@@ -12,7 +12,7 @@ import { dateToString } from "../../utils/dateUtils";
   automatically save the actual date.
 */
 
-function AddIncome ({navigation, ok}) {
+function AddIncome ({navigation}) {
   const [registerIdentifier, setRegisterIdentifier] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [showSnackbar, setShowSnackBar] = useState (false);
@@ -29,14 +29,13 @@ function AddIncome ({navigation, ok}) {
         date : dateToString(new Date())
       }
       addIncome(id, income);
-      navigation.navigate('Home',{updated:true, id:id})
+      navigation.navigate('Information')
     }
   }
 
   return (
     <View style={[generalStyles.genericScreenContainer, styles.formWrapper]}>
       <Snack isOpen={showSnackbar} message='No pueden haber campos vacios' onClose={()=>setShowSnackBar(false)} duration={2500}/>
-      <Text>Añadir ingreso</Text>
       <InputText
         iconName='edit'
         placeholder='Identificador del ingreso'

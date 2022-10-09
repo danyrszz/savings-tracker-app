@@ -21,6 +21,7 @@ SavingSchema.schema = {
     name: "string",
     quantity: "float",
     finalDate : "string",
+    savedMoney : "float",
     incomes : {
       type : 'list',
       objectType : 'Incomes',
@@ -70,6 +71,7 @@ const addIncome = (id, income) =>{
     const saving = getSavingById(id);
     realm.write(()=>{
       saving.incomes.push(incomeData);
+      saving.savedMoney += income.currentSaving;
     })
   }catch(e){
     console.log(e)

@@ -3,8 +3,7 @@ export default function reduceTo(str,car){
   return str;
 }
 
-//information 
-
+//information
 function getTotalSavedMoney(incomes){
   if(incomes.length>0){
     return incomes.map(e=> e.currentSaving).reduce((prev,current) => prev+current,0)
@@ -12,10 +11,6 @@ function getTotalSavedMoney(incomes){
     return 0;
   }
 }
-
-function isComplete(){ return getRemainingMoney<=0 }
-
-
 
 export {
   getTotalSavedMoney

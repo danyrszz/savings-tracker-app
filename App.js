@@ -7,9 +7,12 @@ import Home from './src/screens/Home';
 import NewSavingRegister from './src/screens/NewSavingRegister';
 import SelectedSavingMain from './src/screens/selectedSaving/SelectedSavingMain';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+// import { YellowBox } from "react-native";
+// YellowBox.ignoreWarnings([""]);
+
+//LogBox.ignoreAllLogs()
 
 const Stack = createNativeStackNavigator();
-console.disableYellowBox = true;
 
 function App() {
   return (

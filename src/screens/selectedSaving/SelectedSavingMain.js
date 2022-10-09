@@ -35,6 +35,10 @@ function SelectedSavingMain ({route, navigation}) {
     if(!focused) return <Text style={{fontSize:tabTextSize,color:iconInactiveColor}}>{text}</Text>
   }
 
+  function save(){
+    console.log('saved from the parent')
+  }
+
   return(
       <>
       <TitleBar 

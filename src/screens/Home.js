@@ -1,5 +1,5 @@
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import SavingItem from '../components/SavingItem';
 import TitleBar from '../components/TitleBar';
@@ -9,16 +9,30 @@ import { getSavings } from '../models/database';
 import { deleteItem as deleteSaving } from '../models/database';
 import { defaultPath } from 'realm';
 
+import { useFocusEffect } from '@react-navigation/native';
+
 function Home ({navigation, route}){
+
+  const [registers, setRegisters] = useState(getSavings());
+  const [isUpdated, setIsUpdated] = useState(false);
 
   //when an income is saved to a saving register, home receives from addincome component
   //the updated variable and the id, so home will reroute again to selected saving comp
   //and the freshly saved information gets loaded.
-  if(route.params!== undefined && route.params){
-    navigation.navigate('SelectedSavingMain',{id : route.params.id})
-  }
 
-  const [registers, setRegisters] = useState(getSavings());
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     if(route.params!== undefined && route.params){
+  //       console.log(route.params.updated);
+  //       setIsUpdated(true);
+  //     }
+  //     if(isUpdated) {
+  //       console.log('focused');
+  //       setIsUpdated(false);
+  //     }
+  //   }, [isUpdated, registers])
+  // );
+
   console.log(defaultPath)
   function deleteRecord (id){
     deleteSaving(id);
@@ -37,7 +51,7 @@ function Home ({navigation, route}){
       >añadimos alguno</Text>?
     </Text>
   </View>;
-
+  console.log(registers)
   const registersList = 
   <ScrollView>
     {registers.map( element => {
