@@ -2,7 +2,7 @@ import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { useContext, useState, useEffect} from "react";
 import { idSavingContext } from "./SelectedSavingMain";
 import IncomeDetails from "../../components/IncomeDetails";
-import { getSavingById } from '../../models/database';
+import { deleteIncome, getSavingById } from '../../models/database';
 import { useIsFocused } from "@react-navigation/native";
 
 function History () {
@@ -13,6 +13,14 @@ function History () {
   useEffect(()=>{
     if(focused) setIncomes(getSavingById(id).incomes)
   },[focused])
+
+  function handleEdit(){
+  }
+
+  function handleDelete(incomeID, savingID){
+    deleteIncome(incomeID, savingID);
+    setIncomes(getSavingById(id).incomes);
+  }
 
   const noItems =
   <View style={styles.noRecords}>
@@ -28,14 +36,14 @@ function History () {
           name = {element.name}
           quantity = {element.currentSaving}
           date = {element.date}
+          handleDelete = {()=>handleDelete(element._id, id)}
+          savingID = {id}
+          incomeID = {element._id}
         />)
       }
       )}
     </View>
   </ScrollView>;
-
-  function deleteItem(){}
-  function editItem(){}
 
   return (
     <>
@@ -47,7 +55,6 @@ function History () {
 const styles = StyleSheet.create({
   itemsContainer : { 
     display:'flex', 
-    alignItems: "flex-start", 
     width:'100%',
     padding: 15,
   },

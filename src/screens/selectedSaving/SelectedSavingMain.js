@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddIncome from './AddIncome';
@@ -20,12 +20,16 @@ function SelectedSavingMain ({route, navigation}) {
   const savingData = getSavingById (route.params.id);
   const name = reduceTo(savingData.name, 27);
   const [savingName, setSavingName] = useState(name);
-  
+  const [isCompleted, setIsCompleted] = useState(false);
   // options for configuring tab style
   const tabBarIconSize = 38;
   const iconInactiveColor = colors.vampire;
   const iconActiveColor = colors.link;
   const tabTextSize = 13;
+
+  useEffect(()=>{
+    
+  })
 
   function tabIcon (icon,color){
     return <Icon name={icon} size={tabBarIconSize} color={color} />;
@@ -76,6 +80,9 @@ function SelectedSavingMain ({route, navigation}) {
           }}
           />
           {/* add income */}
+          {isCompleted?(
+            null
+          ):(            
           <tabs.Screen 
           name="Add Income" 
           navigation={navigation}
@@ -87,6 +94,7 @@ function SelectedSavingMain ({route, navigation}) {
             ),
           }}
           />
+          )}
         </tabs.Navigator>
       </idSavingContext.Provider>
       </>

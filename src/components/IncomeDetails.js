@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { useState} from "react";
+import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import { colors } from "../utils/reusableStyles";
 import { formatDate } from "../utils/dateUtils";
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 /*
   this component shows the information of each income register
   assigned to a saving item 
@@ -10,34 +12,57 @@ import { formatDate } from "../utils/dateUtils";
   editable information is just name and date. not quantity.
 */
 
-function IncomeDetails({name,quantity,date}){
+function IncomeDetails({name,quantity,date,handleDelete,handleEdit}){
+  
   const [data, setData] = useState({
     name : name,
     quantity : quantity,
-    date : formatDate(date)
+    date : formatDate(date),
   })
+
+  const deleteIcon = <Icon name='delete' size={40} color={colors.lightPurple} />;
+  const editIcon = <Icon name='edit' size={40} color={colors.lightPurple} />;
+
+  const rightActions = () =>{
+    return(
+      <>
+        <TouchableHighlight style={styles.deleteItem} onPress={handleDelete}>
+          <View>
+            <Text>{deleteIcon}</Text>
+          </View>
+        </TouchableHighlight>
+
+        <TouchableHighlight style={styles.editItem} onPress={handleEdit}>
+          <View>
+            <Text>{editIcon}</Text>
+          </View>
+        </TouchableHighlight>
+      </>
+    )
+  }
+
   return(
-    <View style={styles.container}>
-      <Text style={[styles.row, styles.nameText]}>{data.name}</Text>
-      <Text style={[styles.row, styles.quantityText]}> ${data.quantity}</Text>
-      <View style={styles.dateContainer}>
-        <Text style={styles.dateText}>{data.date}</Text>
+    <Swipeable renderRightActions={rightActions}>
+      <View style={styles.container}>
+        <Text style={[styles.row, styles.nameText]}>{data.name}</Text>
+        <Text style={[styles.row, styles.quantityText]}> ${data.quantity}</Text>
+        <View style={styles.dateContainer}>
+          <Text style={styles.dateText}>{data.date}</Text>
+        </View>
       </View>
-    </View>
+    </Swipeable>
   )
 }
 
 const styles = StyleSheet.create({
   container :{
     backgroundColor : colors.lightPurple,
-    borderRadius : 10,
     width:'100%',
-    marginBottom : 20,
     padding:10,
     elevation: 10,
+    marginBottom : 10,
   },
   row:{
-    // padding:10,
     color : colors.vampire,
     fontSize : 18,
   },
@@ -57,7 +82,21 @@ const styles = StyleSheet.create({
   },
   nameText:{
     fontSize : 20
-  }
+  },
+  deleteItem:{
+    backgroundColor : colors.red,
+    width:80,
+    alignItems:'center',
+    justifyContent:'center',
+    marginBottom : 10,
+  },  
+  editItem:{
+    backgroundColor : colors.vampire,
+    width:80,
+    alignItems:'center',
+    justifyContent:'center',
+    marginBottom : 10,
+  },
 })
 
 export default IncomeDetails;

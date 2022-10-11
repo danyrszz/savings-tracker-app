@@ -21,7 +21,7 @@ SavingSchema.schema = {
   properties: {
     _id: "uuid",
     name: "string",
-    quantity: "float",
+    quantity: "float", //fixed value doesnt change
     finalDate : "string",
     savedMoney : "float",
     restingMoney : "float",
@@ -85,6 +85,28 @@ const addIncome = (id, income) =>{
   }
 }
 
+const deleteIncome = (incomeID, savingID) =>{
+  try{
+    const savings = realm.objectForPrimaryKey("Savings",new UUID(savingID));
+    savings.incomes.map((el)=>{
+      console.log(el._id, incomeID)
+      if(el._id.toString() === incomeID.toString()){
+        //Delete the element
+        realm.write(()=>{
+          savings.savedMoney -= el.currentSaving;
+          savings.progress = getPercent(savings.savedMoney, savings.quantity);
+          savings.restingMoney += el.currentSaving;    
+          realm.delete(el);
+        })
+        console.log("deleted successfuly");
+        return;
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 
 //query the savings
 //let getSavings = realm.objects("Savings");
@@ -93,5 +115,5 @@ const getSavings = () => realm.objects("Savings");
 //receives an string formatted uuid and converts into uuid
 const getSavingById = (id)=> realm.objectForPrimaryKey("Savings", new UUID(id)); 
 
-export {getSavings, saveData, deleteItem, getSavingById, addIncome};
+export {getSavings, saveData, deleteItem, getSavingById, addIncome, deleteIncome};
 export default realm;

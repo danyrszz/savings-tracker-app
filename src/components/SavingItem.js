@@ -4,7 +4,6 @@ import reduceTo from '../utils/misc';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { formatDate } from '../utils/dateUtils';
-import { useEffect, useState } from 'react';
 
 /*
   this component is able to navigate to the main information screen
@@ -19,7 +18,6 @@ function SavingItem({name, quantity, date, progress, idRegister, navigation, rem
   const shrinkName = reduceTo(name,25);
   const goToDetails = () => navigation.navigate('SelectedSavingMain',{id : id});
   const deleteIcon = <Icon name='delete' size={40} color={colors.lightPurple} />;
-  const completedIcon = <Icon name='done' size={20} color={colors.green} />;
 
   const rightActions = () =>{
     return(
