@@ -88,20 +88,14 @@ const addIncome = (id, income) =>{
 const deleteIncome = (incomeID, savingID) =>{
   try{
     const savings = realm.objectForPrimaryKey("Savings",new UUID(savingID));
-    savings.incomes.map((el)=>{
-      console.log(el._id, incomeID)
-      if(el._id.toString() === incomeID.toString()){
-        //Delete the element
-        realm.write(()=>{
-          savings.savedMoney -= el.currentSaving;
-          savings.progress = getPercent(savings.savedMoney, savings.quantity);
-          savings.restingMoney += el.currentSaving;    
-          realm.delete(el);
-        })
-        console.log("deleted successfuly");
-        return;
-      }
-    });
+    const income = savings.incomes.filtered("_id==$0",incomeID);
+    realm.write(()=>{
+      savings.savedMoney -= income[0].currentSaving;
+      savings.progress = getPercent(savings.savedMoney, savings.quantity);
+      savings.restingMoney += income[0].currentSaving;    
+      realm.delete(income);
+    })
+    console.log("Deleted successfully");
   } catch (e) {
     console.log(e);
   }
