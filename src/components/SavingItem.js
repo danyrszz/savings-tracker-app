@@ -4,6 +4,7 @@ import reduceTo from '../utils/misc';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { formatDate } from '../utils/dateUtils';
+import ProgressBar from './ProgressBar';
 
 /*
   this component is able to navigate to the main information screen
@@ -44,7 +45,7 @@ function SavingItem({name, quantity, date, progress, idRegister, navigation, rem
             <Text style={styles.dateLabel}>{formattedDate}</Text>
           </View>
           {/* if task completed */}
-          <Text>{progress}</Text>
+          <ProgressBar value={progress}></ProgressBar>
         </View>
         </TouchableHighlight>
     </Swipeable>

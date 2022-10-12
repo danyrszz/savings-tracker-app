@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor : colors.lightPurple,
     width:'100%',
     padding:10,
-    elevation: 10,
+    elevation: 5,
     marginBottom : 10,
   },
   row:{
