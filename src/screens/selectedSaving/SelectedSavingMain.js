@@ -27,8 +27,12 @@ function SelectedSavingMain ({route, navigation}) {
   const iconActiveColor = colors.link;
   const tabTextSize = 13;
 
+  const today = new Date();
+
   useEffect(()=>{
-    
+    if(savingData.progress>=100||(today.getTime()>=new Date(savingData.finalDate).getTime())){
+      setIsCompleted(true)
+    }
   })
 
   function tabIcon (icon,color){

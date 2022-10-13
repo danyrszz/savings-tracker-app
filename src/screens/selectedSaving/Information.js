@@ -15,7 +15,7 @@ function Information () {
   const [savingInformation, setSavingInformation] = useState(getSavingById(id));
   const [currentSaving, setCurrentSaving] = useState(savingInformation.savedMoney);
   const [remaining, setRemaining] = useState(savingInformation.restingMoney);
-  const [remainingDays, setRemainingDays] = useState(daysTo(savingInformation.finalDate))
+  const [remainingDays, setRemainingDays] = useState(daysTo(savingInformation.finalDate)-1)
     
   useEffect(()=>{
     if(focused){
@@ -43,7 +43,11 @@ function Information () {
         {warningIcon} 
       </View>
       <View style={styles.iconWrapper}>
+      {(remainingDays<=0)?(
+        <Text style ={styles.iconWrapper}>Alcanzaste el limite de dias</Text>
+      ):(
         <Text style ={styles.iconWrapper}>Te quedan {remainingDays} dias</Text>
+      )}
       </View>
     </View>
   </View>

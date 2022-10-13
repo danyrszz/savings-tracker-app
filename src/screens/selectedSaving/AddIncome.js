@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useContext, useState } from "react";
 import { idSavingContext } from "./SelectedSavingMain";
 import { generalStyles } from "../../utils/reusableStyles";
